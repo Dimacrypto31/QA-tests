@@ -7,7 +7,6 @@ class ProductPage(BasePage):
     def add_product_to_basket(self):
         button = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BUTTON)
         button.click()
-        self.solve_quiz_and_get_code()
 
     # Получаем название товара
     def get_product_name(self):
@@ -26,3 +25,7 @@ class ProductPage(BasePage):
     def should_be_correct_product_price(self, product_price):
         basket_total = self.browser.find_element(*ProductPageLocators.BASKET_TOTAL).text
         assert product_price == basket_total, "Basket total is incorrect"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
